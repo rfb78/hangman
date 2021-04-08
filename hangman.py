@@ -25,9 +25,11 @@ def drawCharacter(wrongGuesses):
     missFour = "  ___\n  o  |\n /|\ |\n     |\n     |\n     _"
     missFive = "  ___\n  o  |\n /|\ |\n   \ |\n     |\n     _"
     gameOver = "  ___\n  o  |\n /|\ |\n / \ |\n     |\n     _"
-    if len(wrongGuesses) == 0:
+    if wrongGuesses == 6:
+        return gameOver
+    elif len(wrongGuesses) == 0:
         return(start)
-    if len(wrongGuesses) == 1:
+    elif len(wrongGuesses) == 1:
         return missOne
     elif len(wrongGuesses) == 2:
         return missTwo
@@ -37,8 +39,6 @@ def drawCharacter(wrongGuesses):
         return missFour
     elif len(wrongGuesses) == 5:
         return missFive
-    elif len(wrongGuesses) == 6:
-        return gameOver
 
 wordList = ["apple", "cherry", "pear", "strawberry"]
 word = wordList[randint(0, len(wordList) - 1)]
@@ -60,9 +60,14 @@ while True:
         print("Congrats! The word was " + userInput + "!")
         break
 
+    elif len(guessMiss) >= 5:
+            print(drawCharacter(6))
+            print("GAME OVER!")
+            break
+
     elif userInput in guessMatch or userInput in guessMiss:
         print("You have already made this guess. Try again.")
-        
+
     else:
         if checkIfMatch(userInput, word) == True:
 
@@ -75,6 +80,8 @@ while True:
 
         else:
             guessMiss.append(userInput)
+
             print("(" + " ".join(gameBoard) + ")")
             print(drawCharacter(guessMiss))
-            print("There was no " + userInput + " (s). Try Again!")        
+            print("There was no " + userInput + " (s). Try Again!")    
+ 
